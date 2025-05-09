@@ -1,0 +1,67 @@
+from scapy.all import sniff, Ether, IP, TCP, UDP , DNS, DNSQR, DNSRR
+from datetime import datetime
+
+def analyze_packet(packet):
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] Packet Captured: {packet.summary()}")
+    
+    # Ethernet Layer
+    if packet.haslayer(Ether):
+        eth = packet[Ether]
+        print("🟡 Ethernet Layer:")
+        print(f"   ↪ Source MAC      : {eth.src}")
+        print(f"   ↪ Destination MAC : {eth.dst}")
+        print(f"   ↪ EtherType       : {hex(eth.type)}")
+
+    # IP Layer
+    if packet.haslayer(IP):
+        ip = packet[IP]
+        print("🔵 IP Layer:")
+        print(f"   ↪ Source IP       : {ip.src}")
+        print(f"   ↪ Destination IP  : {ip.dst}")
+        print(f"   ↪ Version         : {ip.version}")
+        print(f"   ↪ Header Length   : {ip.ihl * 4} bytes")
+        print(f"   ↪ Total Length    : {ip.len} bytes")
+        print(f"   ↪ TTL             : {ip.ttl}")
+        print(f"   ↪ Protocol        : {ip.proto}")
+
+    # TCP Layer
+    if packet.haslayer(TCP):
+        tcp = packet[TCP]
+        print("🟢 TCP Layer:")
+        print(f"   ↪ Source Port     : {tcp.sport}")
+        print(f"   ↪ Destination Port: {tcp.dport}")
+        print(f"   ↪ Sequence Number : {tcp.seq}")
+        print(f"   ↪ ACK Number      : {tcp.ack}")
+        print(f"   ↪ Flags           : {tcp.flags}")
+        print(f"   ↪ Window Size     : {tcp.window}")
+
+    # UDP Layer
+    if packet.haslayer(UDP):
+        udp = packet[UDP]
+        print("🟣 UDP Layer:")
+        print(f"   ↪ Source Port     : {udp.sport}")
+        print(f"   ↪ Destination Port: {udp.dport}")
+        print(f"   ↪ Length          : {udp.len} bytes")
+
+     # DNS Layer
+    if packet.haslayer(DNS):
+        dns = packet[DNS]
+        print("🔵 DNS Layer:")
+        if dns.qr == 0 and dns.opcode == 0: 
+            query = packet[DNSQR].qname.decode()
+            print(f"   ↪ DNS Query        : {query}")
+        elif dns.qr == 1:  # Response
+            print("   ↪ DNS Response:")
+            for i in range(dns.ancount):
+                rr = dns.an[i]
+                print(f"     ↪ {rr.rrname.decode()} → {rr.rdata}")
+
+    
+
+interface = None
+packet_count = 5    
+print(f"\n🔍 Starting sniffer on interface: {interface or 'default'}")
+print(f"📦 Capturing {packet_count} packets...\n")
+sniff(iface=interface, prn=analyze_packet, count=packet_count, store=False, filter="ip")
+
+
