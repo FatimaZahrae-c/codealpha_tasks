@@ -14,15 +14,18 @@ This repository contains two versions of a simple Node.js Express application:
 | Hardcoded credentials       | Leaks sensitive information             |
 | No password hashing         | Passwords can be stolen in plaintext    |
 | No input validation         | Exposes app to injection attacks        |
-    |
+    
 
 
 
-## 🔐 Security Improvements
-🛡️ Fix	Description
-❌ Removed eval()	No dynamic code execution
-🔒 Password hashing	Uses bcrypt for secure storage
-🧼 Input validation	Validates form data with express-validator
+### 🔐 Security Improvements
+| 🔐 Issue                                                     | 
+|--------------------------------------------------------------|
+| 🛡️ Fix	Description                                        | 
+| ❌ Removed eval()	No dynamic code execution              | 
+| 🔒 Password hashing	Uses bcrypt for secure storage         | 
+| Input validation	Validates form data with express-validator | 
+
 
 
 ### 🧪 Run
