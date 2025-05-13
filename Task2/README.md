@@ -19,12 +19,11 @@ This repository contains two versions of a simple Node.js Express application:
 
 
 ### 🔐 Security Improvements
-| 🔐 Issue                                                     | 
-|--------------------------------------------------------------|
-| 🛡️ Fix	Description                                        | 
-| ❌ Removed eval()	No dynamic code execution              | 
-| 🔒 Password hashing	Uses bcrypt for secure storage         | 
-| Input validation	Validates form data with express-validator | 
+| 🛡️ Fix                                                           | 
+|------------------------------------------------------------------|                                      
+| ❌ Removed eval()	No dynamic code execution                      | 
+| 🔒 Password hashing	Uses bcrypt for secure storage             | 
+| 📁Input validation	Validates form data with express-validator | 
 
 
 
@@ -34,7 +33,7 @@ npm start
 
 
 
-📚 Learning Objective
+### 📚 Learning Objective
 This project was created as part of a Secure Coding Review task for a cybersecurity internship. It aims to help identify and fix typical vulnerabilities in web applications.
 
 
