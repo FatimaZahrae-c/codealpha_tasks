@@ -1,4 +1,4 @@
-####Secure Coding Review – Vulnerable & Secure Node.js App
+###Secure Coding Review – Vulnerable & Secure Node.js App
 
 This repository contains two versions of a simple Node.js Express application:
 
